@@ -10,7 +10,7 @@ public enum PLoggingLevel {
 
     @Override
     public String toString() {
-        if (!equals(ALL)){
+        if (!equals(ALL)) {
             return super.toString() + " : ";
         } else {
             return "";

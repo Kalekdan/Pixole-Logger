@@ -1,10 +1,6 @@
 package main.java.com.pixolestudios.plogger;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 
 public class FileUtils {
     private FileUtils() {
@@ -12,6 +8,7 @@ public class FileUtils {
 
     /**
      * Makes all the required directories up to the path provided
+     *
      * @param path to which directories to be created
      * @return true if successfully creates directories
      */
@@ -23,11 +20,12 @@ public class FileUtils {
     /**
      * Writes to the log file at location given
      * If append is false, will start a new log file when application is run
-     * @param msg message to output
+     *
+     * @param msg     message to output
      * @param fileLoc path to log file
-     * @param append true if want to append file
+     * @param append  true if want to append file
      */
-    protected static void writeToLogFile(String msg, String fileLoc, boolean append){
+    protected static void writeToLogFile(String msg, String fileLoc, boolean append) {
         try (FileWriter fw = new FileWriter(fileLoc, append); BufferedWriter bw = new BufferedWriter(fw); PrintWriter out = new PrintWriter(bw)) {
             out.println(msg);
         } catch (IOException e) {
