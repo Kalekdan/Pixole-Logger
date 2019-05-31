@@ -14,6 +14,7 @@ public class DemoPLogger {
         PLog.info("this is info");
         PLog.writeLogsToFile(true);
         PLog.warning("this is a warning");
+        PLog.setLogFileLoc("logs/another.plog");
         PLog.error("this is an error");
     }
 }

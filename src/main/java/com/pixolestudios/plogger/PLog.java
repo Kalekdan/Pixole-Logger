@@ -127,6 +127,9 @@ public class PLog {
      * @param pathToLogFile path to log to e.g. path/logfile.plog
      */
     public static void setLogFileLoc(String pathToLogFile){
-        logFileLoc = pathToLogFile;
+        if (!pathToLogFile.equals(logFileLoc)){
+            isFirstLogToFile = true;
+            logFileLoc = pathToLogFile;
+        }
     }
 }
