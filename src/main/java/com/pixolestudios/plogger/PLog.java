@@ -6,9 +6,10 @@ import java.time.LocalTime;
 public class PLog {
 
     //DEFAULT VALUES
+    //Will be overidden by config.ini if provided
     private static PLoggingLevel logLvl = PLoggingLevel.DEBUG;
     private static boolean logToStdOut = true;
-    private static boolean logToFile = true;
+    private static boolean logToFile = false;
     private static boolean includeDateStamps = true;
     private static boolean includeTimeStamps = true;
     private static String logFileLoc = "logs/logfile.plog";
@@ -102,5 +103,30 @@ public class PLog {
      */
     public static void error(String input) {
         log(input, PLoggingLevel.ERROR);
+    }
+
+    /**
+     * If true, logger will now write logs to stdout
+     * @param doLogToStdOut if true will write to std out
+     */
+    public static void writeLogsToStdOut(boolean doLogToStdOut){
+        logToStdOut = doLogToStdOut;
+    }
+
+    /**
+     * If true, logger will now write logs to file as given by logFileLoc
+     * logFileLoc is set do default (as per config.ini) unless changed by setLogFileLoc("path/logfile.plog")
+     * @param doLogToFile if true will write logs to file
+     */
+    public static void writeLogsToFile(boolean doLogToFile){
+        logToFile = doLogToFile;
+    }
+
+    /**
+     * Sets the location of the log file to write to
+     * @param pathToLogFile path to log to e.g. path/logfile.plog
+     */
+    public static void setLogFileLoc(String pathToLogFile){
+        logFileLoc = pathToLogFile;
     }
 }
