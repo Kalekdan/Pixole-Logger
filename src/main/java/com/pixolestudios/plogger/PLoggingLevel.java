@@ -1,10 +1,19 @@
 package main.java.com.pixolestudios.plogger;
 
 public enum PLoggingLevel {
+    ALL,
     DEBUG,
-    PROPERTIES,
     INFO,
     WARNING,
     ERROR,
-    NOLOGS
+    NOLOGS;
+
+    @Override
+    public String toString() {
+        if (!equals(ALL)){
+            return super.toString() + " : ";
+        } else {
+            return "";
+        }
+    }
 }

@@ -5,10 +5,8 @@
  * Learn how to create Gradle builds at https://guides.gradle.org/creating-new-gradle-builds/
  */
 println """
-*******************************************
- Building Pixole Studios PLogger
+ Building PLogger
  Output files will be in ${rootDir}/build/libs
-*******************************************
 """
 
 apply plugin: 'java'
@@ -24,7 +22,10 @@ ext.buildNumber = System.getenv("BUILD_NUMBER") ?: "dev"
 version 'Stable'
 
 jar {
-    manifest {
-        attributes 'Main-Class': 'main.java.com.pixolestudios.plogger.PLogger'
+    jar {
+        exclude('main/java/com/pixolestudios/plogger/DemoPLogger.class')
     }
+//    manifest {
+//        attributes 'Main-Class': 'main.java.com.pixolestudios.plogger.PLogger'
+//    }
 }
