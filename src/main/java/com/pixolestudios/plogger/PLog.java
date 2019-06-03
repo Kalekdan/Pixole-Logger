@@ -12,7 +12,7 @@ public class PLog {
     private static boolean logToFile = false;
     private static boolean includeDateStamps = true;
     private static boolean includeTimeStamps = true;
-    private static String logFileLoc = "logs/logfile.plog";
+    private static String logFileLoc = "logs/default.plog";
 
     //TRACKING VARIABLES
     private static boolean isFirstLogToFile = true;
