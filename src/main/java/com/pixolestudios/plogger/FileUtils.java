@@ -22,7 +22,11 @@ public class FileUtils {
      */
     protected static boolean mkdirs(String path) {
         File file = new File(path);
-        return file.getParentFile().mkdirs();
+        if (file.getParentFile() == null){
+            return false;
+        } else {
+            return file.getParentFile().mkdirs();
+        }
     }
 
     /**
