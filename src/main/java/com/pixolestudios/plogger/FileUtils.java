@@ -1,13 +1,6 @@
 package main.java.com.pixolestudios.plogger;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Properties;
 
 public class FileUtils {
@@ -49,15 +42,16 @@ public class FileUtils {
         try (InputStream stream = new FileInputStream(fileLoc)) {
             Properties props = new Properties();
             props.load(stream);
-            PLog.setLoggingLevel(props.getProperty("loggingLevel"));
-            PLog.setLogToStdOut(props.getProperty("logToStdOut"));
-            PLog.setLogToFile(props.getProperty("logToFile"));
-            PLog.setIncludeDateStamps(props.getProperty("includeDateStamps"));
-            PLog.setIncludeTimeStamps(props.getProperty("includeTimeStamps"));
-            PLog.setLogFileLoc(props.getProperty("logFileLoc"));
+            PLog.setLoggingLevel(props.getProperty("LOGGING_LEVEL"));
+            PLog.setLogToStdOut(props.getProperty("WRITE_LOGS_TO_STDOUT"));
+            PLog.setLogToFile(props.getProperty("WRITE_LOGS_TO_LOG_FILE"));
+            PLog.setIncludeDateStamps(props.getProperty("INCLUDE_DATE_STAMPS"));
+            PLog.setIncludeTimeStamps(props.getProperty("INCLUED_TIME_STAMPS"));
+            PLog.setLogFileLoc(props.getProperty("LOG_FILE_LOCATION"));
         } catch (FileNotFoundException e) {
             //e.printStackTrace();
-            PLog.warning("Could not find config file at " + fileLoc + " - Using default values instead.\n");
+            File file = new File(fileLoc);
+            PLog.warning("Could not find config file at " + file.getAbsolutePath() + " - Using default values instead.\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
