@@ -6,7 +6,7 @@ import java.time.LocalTime;
 public class PLog {
 
     //DEFAULT VALUES
-    //Will be overidden by config.ini if provided
+    //Will be overidden by propsfile if provided
     private static PLoggingLevel logLvl = PLoggingLevel.DEBUG;
     private static boolean logToStdOut = true;
     private static boolean logToFile = false;
@@ -14,9 +14,12 @@ public class PLog {
     private static boolean includeTimeStamps = true;
     private static String logFileLoc = "logs/default.plog";
 
+    private static String propsFile = "setup/plog_config.properties";
+
     //TRACKING VARIABLES
     private static boolean isFirstLogToFile = true;
     private static boolean isFirstLogToStdOut = true;
+    private static boolean isValuesLoaded = false;
 
     private PLog() {
     }
@@ -28,6 +31,9 @@ public class PLog {
      * @param level the logging level of the message
      */
     public static void log(String input, PLoggingLevel level) {
+        if (!isValuesLoaded) {
+            loadValsFromFile();
+        }
         if (level.isHigherOrEqualLevel(logLvl)) {
             output(composeMsg(input, level));
         }
@@ -38,6 +44,7 @@ public class PLog {
             if (isFirstLogToStdOut) {
                 System.out.println(composeMsg("PLogger Started in StdOut\n", PLoggingLevel.ALL));
                 isFirstLogToStdOut = false;
+                listLoggingValuesToStdOut();
             }
             System.out.println(outMsg);
         }
@@ -45,9 +52,15 @@ public class PLog {
             if (isFirstLogToFile) {
                 outputToFile(composeMsg("Plogger Started in logFile\n", PLoggingLevel.ALL), false);
                 isFirstLogToFile = false;
+                listLoggingValuesToFile();
             }
             outputToFile(outMsg, true);
         }
+    }
+
+    private static void loadValsFromFile() {
+        isValuesLoaded = true;
+        FileUtils.loadValsFromPropsFile(propsFile);
     }
 
     private static void outputToFile(String outMsg, boolean appendFile) {
@@ -131,5 +144,44 @@ public class PLog {
             isFirstLogToFile = true;
             logFileLoc = pathToLogFile;
         }
+    }
+
+    protected static void listLoggingValuesToStdOut() {
+        System.out.println(composeMsg("Logging level = " + logLvl.name(), PLoggingLevel.DEBUG));
+        System.out.println(composeMsg("Log to StdOut = " + String.valueOf(logToStdOut), PLoggingLevel.DEBUG));
+        System.out.println(composeMsg("Log to file = " + String.valueOf(logToFile), PLoggingLevel.DEBUG));
+        System.out.println(composeMsg("Include date stamps = " + String.valueOf(includeDateStamps), PLoggingLevel.DEBUG));
+        System.out.println(composeMsg("Include time stamps = " + String.valueOf(includeTimeStamps), PLoggingLevel.DEBUG));
+        System.out.println(composeMsg("Log file location = " + logFileLoc + "\n", PLoggingLevel.DEBUG));
+    }
+
+    protected static void listLoggingValuesToFile() {
+        outputToFile("Logging level = " + logLvl.name(), true);
+        outputToFile("Log to StdOut = " + String.valueOf(logToStdOut), true);
+        outputToFile("Log to file = " + String.valueOf(logToFile), true);
+        outputToFile("Include date stamps = " + String.valueOf(includeDateStamps), true);
+        outputToFile("Include time stamps = " + String.valueOf(includeTimeStamps), true);
+        outputToFile("Log file location = " + logFileLoc + "\n", true);
+    }
+
+
+    protected static void setLoggingLevel(String newVal) {
+        logLvl = PLoggingLevel.valueOf(newVal);
+    }
+
+    protected static void setLogToStdOut(String newVal) {
+        logToStdOut = Boolean.parseBoolean(newVal);
+    }
+
+    protected static void setLogToFile(String newVal){
+        logToFile = Boolean.parseBoolean(newVal);
+    }
+
+    protected static void setIncludeDateStamps(String newVal){
+        includeDateStamps = Boolean.parseBoolean(newVal);
+    }
+
+    protected static void setIncludeTimeStamps(String newVal){
+        includeTimeStamps = Boolean.parseBoolean(newVal);
     }
 }
