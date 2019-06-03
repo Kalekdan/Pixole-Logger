@@ -28,7 +28,7 @@ public class PLog {
      * @param level the logging level of the message
      */
     public static void log(String input, PLoggingLevel level) {
-        if (level.compareTo(logLvl) >= 0) {
+        if (level.isHigherOrEqualLevel(logLvl)) {
             output(composeMsg(input, level));
         }
     }

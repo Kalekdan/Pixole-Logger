@@ -1,12 +1,22 @@
 package main.java.com.pixolestudios.plogger;
 
 public enum PLoggingLevel {
-    ALL,
-    DEBUG,
-    INFO,
-    WARNING,
-    ERROR,
-    NOLOGS;
+    ALL(0),
+    DEBUG(1),
+    INFO(2),
+    WARNING(3),
+    ERROR(4),
+    NOLOGS(5);
+
+    private final int levelCode;
+
+    PLoggingLevel(int levelCode){
+        this.levelCode = levelCode;
+    }
+
+    public boolean isHigherOrEqualLevel(PLoggingLevel level){
+        return (levelCode >= level.levelCode);
+    }
 
     @Override
     public String toString() {
