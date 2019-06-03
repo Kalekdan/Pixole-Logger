@@ -14,6 +14,11 @@ public enum PLoggingLevel {
         this.levelCode = levelCode;
     }
 
+    /**
+     * Is the logging level higher or equal to the one passed
+     * @param level logging level to compare to
+     * @return true if level is higher or equal to level passed
+     */
     public boolean isHigherOrEqualLevel(PLoggingLevel level){
         return (levelCode >= level.levelCode);
     }
