@@ -1,3 +1,4 @@
+# Pixole Logger
 ## Set up
 Setup for *Pixole Logger* is really simple as it is all contained to a single .jar file.<br>
 Simply download the .jar and include it in your java project.<br>
