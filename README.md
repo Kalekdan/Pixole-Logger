@@ -1,5 +1,5 @@
 # Pixole Logger
-*Simple, lightweight and easily customizeable java logging tool.*
+*Simple, lightweight and easily customizable java logging tool.*
 <hr>
 ### Set up
 Setup for *Pixole Logger* is really simple as it is all contained to a single .jar file.<br>
