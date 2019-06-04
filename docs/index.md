@@ -4,7 +4,9 @@ Setup for *Pixole Logger* is really simple as it is all contained to a single .j
 Simply download the .jar and include it in your java project.<br>
 If you want to provide configuration when it starts up, you can also place the ```plog_config.properties``` file in a setup folder in the root directory of th projct. <br>
 *Note that this configuration can be done in the code if you would rather not include an extra file.*
-
+### Downloads
+>[plogger-1.0.0-alpha.jar](https://github.com/Kalekdan/Pixole-Logger/releases/download/alpha-1.0.0/plogger-1.0.0-alpha.jar)<br>
+>[plog_config.properties](https://github.com/Kalekdan/Pixole-Logger/releases/download/alpha-1.0.0/plog_config.properties)
 ## Logging
 *Pixole Logger* supports various logging levels, allowing you to easily filter which log messages are shown. Any logs at the same or a higher logging level to the current level given in the configuration will be shown.
 ~~~ java
