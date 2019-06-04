@@ -1,5 +1,3 @@
-# Pixole Logger
-
 *Simple, lightweight and easily customizeable java logging tool.*
 <hr>
 ### Set up
@@ -52,7 +50,8 @@ LOG_FILE_LOCATION = logs/default.plog
 
 #### Java code
 Some of these properties can also be set/updated at runtime using the following syntax
-~~~ Java
+
+~~~ java
 PLog.setLogFileLoc("output/mylog.plog");
 PLog.writeLogsToStdOut(true);
 PLog.writeLogsToFile(false);
