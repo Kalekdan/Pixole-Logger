@@ -1,4 +1,4 @@
-#Pixole Logger
+# Pixole Logger
 *Simple, lightweight and easily customizeable java logging tool.*
 <hr>
 ### Set up
