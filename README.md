@@ -1,7 +1,9 @@
 # Pixole Logger
 *Simple, lightweight and easily customizable java logging tool.*
 <hr>
+
 ### Set up
+
 Setup for *Pixole Logger* is really simple as it is all contained to a single .jar file.<br>
 Simply download the .jar and include it in your java project.<br>
 If you want to provide configuration when it starts up, you can also place the ```plog_config.properties``` file in a setup folder in the root directory of th projct. <br>
