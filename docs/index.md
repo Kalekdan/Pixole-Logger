@@ -5,7 +5,7 @@ Simply download the .jar and include it in your java project.<br>
 If you want to provide configuration when it starts up, you can also place the ```plog_config.properties``` file in a setup folder in the root directory of th projct. <br>
 *Note that this configuration can be done in the code if you would rather not include an extra file.*
 
-### Downloads
+### Downloads (also available in [releases of git repo](https://github.com/Kalekdan/Pixole-Logger/releases))
 >[plogger-1.0.0-alpha.jar](https://github.com/Kalekdan/Pixole-Logger/releases/download/alpha-1.0.0/plogger-1.0.0-alpha.jar)<br>
 >[plog_config.properties](https://github.com/Kalekdan/Pixole-Logger/releases/download/alpha-1.0.0/plog_config.properties)
 
