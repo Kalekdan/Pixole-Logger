@@ -26,3 +26,8 @@ jar {
         exclude('main/java/com/pixolestudios/plogger/DemoPLogger.class')
     }
 }
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
