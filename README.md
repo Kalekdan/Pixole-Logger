@@ -6,7 +6,7 @@
 
 Setup for *Pixole Logger* is really simple as it is all contained to a single .jar file.<br>
 Simply download the .jar and include it in your java project.<br>
-If you want to provide configuration when it starts up, you can also place the ```plog_config.properties``` file in a setup folder in the root directory of th projct. <br>
+If you want to provide configuration when it starts up, you can also place the ```plog_config.properties``` file in a setup folder in the root directory of the project. <br>
 *Note that this configuration can be done in the code if you would rather not include an extra file.*
 
 ### Logging
@@ -19,7 +19,7 @@ PLog.info("This is an info log message");
 PLog.warning("This is a warning log message");
 PLog.error("This is an error message");
 
-// Or alternatively the loggins level can be specified as follows
+// Or alternatively the logging level can be specified as follows
 // NB: this will perform exactly the same as PLog.warning("...")
 PLog.log("This is a message to be logged", PLoggingLevel.WARNING)
 ~~~
