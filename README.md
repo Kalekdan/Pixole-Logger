@@ -1,4 +1,4 @@
-<p align"center"><img src="/docs/media/logo.png"/></p>
+<p align="center"><img src="docs/media/logo.png"/></p>
 
 # Pixole Logger
 *Simple, lightweight and easily customizable java logging tool.*
