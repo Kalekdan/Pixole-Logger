@@ -54,7 +54,8 @@ public class FileUtils {
             PLog.setLogToFile(props.getProperty("WRITE_LOGS_TO_LOG_FILE"));
             PLog.setIncludeDateStamps(props.getProperty("INCLUDE_DATE_STAMPS"));
             PLog.setIncludeTimeStamps(props.getProperty("INCLUED_TIME_STAMPS"));
-            PLog.setLogFileLoc(props.getProperty("LOG_FILE_LOCATION"));
+            PLog.setLogDir(props.getProperty("LOG_DIR"));
+            PLog.setDefLogFile(props.getProperty("DEF_LOG_NAME"));
         } catch (FileNotFoundException e) {
             //e.printStackTrace();
             File file = new File(fileLoc);

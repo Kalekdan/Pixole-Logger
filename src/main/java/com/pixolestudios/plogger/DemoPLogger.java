@@ -14,5 +14,10 @@ public class DemoPLogger {
         PLog.info("this is info");
         PLog.warning("this is a warning");
         PLog.error("this is an error");
+
+        PLog.error("logging to new file", "thisfile");
+        PLog.error("back to default");
+        PLog.warning("continuing to log on the new file", "thisfile");
+        PLog.debug("another log file, why not", "anotherfile");
     }
 }
