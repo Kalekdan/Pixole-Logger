@@ -6,8 +6,8 @@ Simply download the .jar and include it in your java project.<br>
 If you want to provide configuration when it starts up, you can also place the ```plog_config.properties``` file in a setup folder in the root directory of the project. <br>
 *Note that this configuration can be done in the code if you would rather not include an extra file.*
 
-## Downloads
-Available in [releases of git repo here](https://github.com/Kalekdan/Pixole-Logger/releases))
+#### Downloads
+Available in [releases of git repo](https://github.com/Kalekdan/Pixole-Logger/releases)
 
 ## Logging
 *Pixole Logger* supports various logging levels, allowing you to easily filter which log messages are shown. Any logs at the same or a higher logging level to the current level given in the configuration will be shown.
@@ -60,16 +60,16 @@ INCLUED_TIME_STAMPS = true
 # If true, log messages will be written to StdOut (normally the console)
 WRITE_LOGS_TO_STDOUT = false
 
-# If true, log messages will be written to a log file (as given in LOG_FILE_LOCATION)
+# If true, log messages will be written to a log file (DEF_LOG_NAME under LOG_DIR unless specified)
 WRITE_LOGS_TO_LOG_FILE = true
-LOG_FILE_LOCATION = logs/default.plog
+LOG_DIR = logs/
+DEF_LOG_NAME = default
 ~~~
 
 ### Java code
 Some of these properties can also be set/updated at runtime using the following syntax
 
 ~~~ java
-PLog.setLogFileLoc("output/mylog.plog");
 PLog.writeLogsToStdOut(true);
 PLog.writeLogsToFile(false);
 ~~~
