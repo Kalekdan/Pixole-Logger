@@ -30,8 +30,7 @@ PLog.log("This is a message to be logged", PLoggingLevel.WARNING)
 #### Multiple log files
 By default, all logs will be written to the default log file (DEF_LOG_NAME.plog) under the log directory (LOG_DIR) as specified in the config file. *Pixole Logger* also supports multiple simutaneous log files. To specify an alternative log file, use the following syntax:
 ~~~ java
-// Sending log messages with increasingly higher logging levels
-// DEBUG, INFO, WARNING, ERROR
+// Writing logs to multiple different log files
 PLog.debug("This is a debug log message", "myLogFileName");
 PLog.info("This is an info log message", "tests");
 PLog.warning("This is a warning log message", "server");
