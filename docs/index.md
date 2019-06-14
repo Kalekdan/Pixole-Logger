@@ -6,9 +6,8 @@ Simply download the .jar and include it in your java project.<br>
 If you want to provide configuration when it starts up, you can also place the ```plog_config.properties``` file in a setup folder in the root directory of the project. <br>
 *Note that this configuration can be done in the code if you would rather not include an extra file.*
 
-### Downloads (also available in [releases of git repo](https://github.com/Kalekdan/Pixole-Logger/releases))
->[plogger-1.0.0-alpha.jar](https://github.com/Kalekdan/Pixole-Logger/releases/download/alpha-1.0.0/plogger-1.0.0-alpha.jar)<br>
->[plog_config.properties](https://github.com/Kalekdan/Pixole-Logger/releases/download/alpha-1.0.0/plog_config.properties)
+## Downloads
+Available in [releases of git repo here](https://github.com/Kalekdan/Pixole-Logger/releases))
 
 ## Logging
 *Pixole Logger* supports various logging levels, allowing you to easily filter which log messages are shown. Any logs at the same or a higher logging level to the current level given in the configuration will be shown.
@@ -25,6 +24,20 @@ PLog.error("This is an error message");
 PLog.log("This is a message to be logged", PLoggingLevel.WARNING)
 ~~~
 
+
+#### Multiple log files
+By default, all logs will be written to the default log file (DEF_LOG_NAME.plog) under the log directory (LOG_DIR) as specified in the config file. *Pixole Logger* also supports multiple simutaneous log files. To specify an alternative log file, use the following syntax:
+~~~ java
+// Sending log messages with increasingly higher logging levels
+// DEBUG, INFO, WARNING, ERROR
+PLog.debug("This is a debug log message", "myLogFileName");
+PLog.info("This is an info log message", "tests");
+PLog.warning("This is a warning log message", "server");
+PLog.error("This is an error message", "tests");
+~~~
+
+
+This will write to logs using the name as given i.e. (myLogFileName -> myLogFileName.plog). Any time you do not specify a log file name, the default log file will be written to instead (default.plog unless specified differently in the .properties file)
 
 ## Configuring
 *Pixole Logger* can be customized either using a properties file or calling specific methods in the java code. You can even use a combination of the two. The properties file is loaded when the logger starts. *Pixole Logger* will use the most recent configuration provided (i.e. if you set an output directory in the properties file then change it in the code, it will use the directory set in the code) 

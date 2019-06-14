@@ -236,7 +236,7 @@ public class PLog {
         includeTimeStamps = Boolean.parseBoolean(newVal);
     }
 
-    public static void setLogDir(String log_dir) {
+    protected static void setLogDir(String log_dir) {
         globalLogDir = log_dir;
     }
 }
