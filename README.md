@@ -27,6 +27,20 @@ PLog.log("This is a message to be logged", PLoggingLevel.WARNING)
 ~~~
 
 
+#### Multiple log files
+By default, all logs will be written to the default log file (DEF_LOG_NAME.plog) under the log directory (LOG_DIR) as specified in the config file. *Pixole Logger* also supports multiple simutaneous log files. To specify an alternative log file, use the following syntax:
+~~~ java
+// Sending log messages with increasingly higher logging levels
+// DEBUG, INFO, WARNING, ERROR
+PLog.debug("This is a debug log message", "myLogFileName");
+PLog.info("This is an info log message", "tests");
+PLog.warning("This is a warning log message", "server");
+PLog.error("This is an error message", "tests");
+~~~
+
+
+This will write to logs using the name as given i.e. (myLogFileName -> myLogFileName.plog). Any time you do not specify a log file name, the default log file will be written to instead (default.plog unless specified differently in the .properties file)
+
 ### Configuring
 *Pixole Logger* can be customized either using a properties file or calling specific methods in the java code. You can even use a combination of the two. The properties file is loaded when the logger starts. *Pixole Logger* will use the most recent configuration provided (i.e. if you set an output directory in the properties file then change it in the code, it will use the directory set in the code) 
 
@@ -48,16 +62,16 @@ INCLUED_TIME_STAMPS = true
 # If true, log messages will be written to StdOut (normally the console)
 WRITE_LOGS_TO_STDOUT = false
 
-# If true, log messages will be written to a log file (as given in LOG_FILE_LOCATION)
+# If true, log messages will be written to a log file (DEF_LOG_NAME under LOG_DIR unless specified)
 WRITE_LOGS_TO_LOG_FILE = true
-LOG_FILE_LOCATION = logs/default.plog
+LOG_DIR = logs/
+DEF_LOG_NAME = default
 ~~~
 
 #### Java code
 Some of these properties can also be set/updated at runtime using the following syntax
 
 ~~~ java
-PLog.setLogFileLoc("output/mylog.plog");
 PLog.writeLogsToStdOut(true);
 PLog.writeLogsToFile(false);
 ~~~

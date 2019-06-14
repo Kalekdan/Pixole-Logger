@@ -2,6 +2,7 @@ package main.java.com.pixolestudios.plogger;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashMap;
 
 public class PLog {
 
@@ -12,14 +13,17 @@ public class PLog {
     private static boolean logToFile = false;
     private static boolean includeDateStamps = true;
     private static boolean includeTimeStamps = true;
-    private static String logFileLoc = "logs/default.plog";
+    private static String globalLogDir = "logs/";
+    private static String defLogFileName = "default";
 
     private static String propsFile = "setup/plog_config.properties";
 
     //TRACKING VARIABLES
-    private static boolean isFirstLogToFile = true;
+//    private static boolean isFirstLogToFile = true;
     private static boolean isFirstLogToStdOut = true;
     private static boolean isValuesLoaded = false;
+
+    private static HashMap<String, LogFileData> logFileMap = new HashMap<String, LogFileData>();
 
     private PLog() {
     }
@@ -29,17 +33,24 @@ public class PLog {
      *
      * @param input the message to log
      * @param level the logging level of the message
+     * @param logFileName name of the log file to write to
      */
-    public static void log(String input, PLoggingLevel level) {
+    public static void log(String input, PLoggingLevel level, String logFileName) {
+        if (!logFileMap.containsKey(logFileName)) {
+            logFileMap.put(logFileName, new LogFileData(logFileName));
+        }
         if (!isValuesLoaded) {
             loadValsFromFile();
         }
         if (level.isHigherOrEqualLevel(logLvl)) {
-            output(composeMsg(input, level));
+            output(composeMsg(input, level), logFileName);
         }
     }
+    public static void log(String input, PLoggingLevel level) {
+        log(input, level, defLogFileName);
+    }
 
-    private static void output(String outMsg) {
+    private static void output(String outMsg, String logFileName) {
         if (logToStdOut) {
             if (isFirstLogToStdOut) {
                 System.out.println(composeMsg("PLogger Started in StdOut\n", PLoggingLevel.ALL));
@@ -49,12 +60,12 @@ public class PLog {
             System.out.println(outMsg);
         }
         if (logToFile) {
-            if (isFirstLogToFile) {
-                outputToFile(composeMsg("Plogger Started in logFile\n", PLoggingLevel.ALL), false);
-                isFirstLogToFile = false;
-                listLoggingValuesToFile();
+            if (logFileMap.get(logFileName).getIsFirstLogToFile()) {
+                outputToFile(composeMsg("Plogger Started in logFile\n", PLoggingLevel.ALL), false, logFileName);
+                logFileMap.get(logFileName).setIsFirstLogToFile(false);
+                listLoggingValuesToFile(logFileName);
             }
-            outputToFile(outMsg, true);
+            outputToFile(outMsg, true, logFileName);
         }
     }
 
@@ -63,9 +74,9 @@ public class PLog {
         FileUtils.loadValsFromPropsFile(propsFile);
     }
 
-    private static void outputToFile(String outMsg, boolean appendFile) {
-        FileUtils.mkdirs(logFileLoc);
-        FileUtils.writeToLogFile(outMsg, logFileLoc, appendFile);
+    private static void outputToFile(String outMsg, boolean appendFile, String name) {
+        FileUtils.mkdirs(globalLogDir + name);
+        FileUtils.writeToLogFile(outMsg, globalLogDir + name, appendFile);
     }
 
     private static String composeMsg(String msg, PLoggingLevel level) {
@@ -88,7 +99,7 @@ public class PLog {
      * @param input message to log
      */
     public static void debug(String input) {
-        log(input, PLoggingLevel.DEBUG);
+        debug(input, defLogFileName);
     }
 
     /**
@@ -97,7 +108,7 @@ public class PLog {
      * @param input message to log
      */
     public static void info(String input) {
-        log(input, PLoggingLevel.INFO);
+        info(input, defLogFileName);
     }
 
     /**
@@ -106,7 +117,7 @@ public class PLog {
      * @param input message to log
      */
     public static void warning(String input) {
-        log(input, PLoggingLevel.WARNING);
+        warning(input, defLogFileName);
     }
 
     /**
@@ -115,7 +126,47 @@ public class PLog {
      * @param input message to log
      */
     public static void error(String input) {
-        log(input, PLoggingLevel.ERROR);
+        error(input, defLogFileName);
+    }
+
+    /**
+     * Logs a debug message
+     *
+     * @param input message to log
+     * @param logName name of the log file to write to
+     */
+    public static void debug(String input, String logName) {
+        log(input, PLoggingLevel.DEBUG, logName);
+    }
+
+    /**
+     * Logs an info message
+     *
+     * @param input message to log
+     * @param logName name of the log file to write to
+     */
+    public static void info(String input, String logName) {
+        log(input, PLoggingLevel.INFO, logName);
+    }
+
+    /**
+     * Logs a warning message
+     *
+     * @param input message to log
+     * @param logName name of the log file to write to
+     */
+    public static void warning(String input, String logName) {
+        log(input, PLoggingLevel.WARNING, logName);
+    }
+
+    /**
+     * Logs an error message
+     *
+     * @param input message to log
+     * @param logName name of the log file to write to
+     */
+    public static void error(String input, String logName) {
+        log(input, PLoggingLevel.ERROR, logName);
     }
 
     /**
@@ -136,13 +187,13 @@ public class PLog {
     }
 
     /**
-     * Sets the location of the log file to write to
-     * @param pathToLogFile path to log to e.g. path/logfile.plog
+     * Sets the name of the defatul log file to write to
+     * @param logName path to log to e.g. default
      */
-    public static void setLogFileLoc(String pathToLogFile){
-        if (!pathToLogFile.equals(logFileLoc)){
-            isFirstLogToFile = true;
-            logFileLoc = pathToLogFile;
+    public static void setDefLogFile(String logName){
+        if (!logName.equals(defLogFileName)){
+            logFileMap.get(logName).setIsFirstLogToFile(true);
+            defLogFileName = logName;
         }
     }
 
@@ -152,16 +203,16 @@ public class PLog {
         System.out.println(composeMsg("Log to file = " + String.valueOf(logToFile), PLoggingLevel.DEBUG));
         System.out.println(composeMsg("Include date stamps = " + String.valueOf(includeDateStamps), PLoggingLevel.DEBUG));
         System.out.println(composeMsg("Include time stamps = " + String.valueOf(includeTimeStamps), PLoggingLevel.DEBUG));
-        System.out.println(composeMsg("Log file location = " + logFileLoc + "\n", PLoggingLevel.DEBUG));
+        System.out.println(composeMsg("Default log file location = " + globalLogDir + logFileMap.get(defLogFileName).getLogFileName() + "\n", PLoggingLevel.DEBUG));
     }
 
-    protected static void listLoggingValuesToFile() {
-        outputToFile("Logging level = " + logLvl.name(), true);
-        outputToFile("Log to StdOut = " + String.valueOf(logToStdOut), true);
-        outputToFile("Log to file = " + String.valueOf(logToFile), true);
-        outputToFile("Include date stamps = " + String.valueOf(includeDateStamps), true);
-        outputToFile("Include time stamps = " + String.valueOf(includeTimeStamps), true);
-        outputToFile("Log file location = " + logFileLoc + "\n", true);
+    protected static void listLoggingValuesToFile(String logName) {
+        outputToFile("Logging level = " + logLvl.name(), true, logName);
+        outputToFile("Log to StdOut = " + String.valueOf(logToStdOut), true, logName);
+        outputToFile("Log to file = " + String.valueOf(logToFile), true, logName);
+        outputToFile("Include date stamps = " + String.valueOf(includeDateStamps), true, logName);
+        outputToFile("Include time stamps = " + String.valueOf(includeTimeStamps), true, logName);
+        outputToFile("Log file location = " + globalLogDir + logFileMap.get(logName).getLogFileName() + "\n", true, logName);
     }
 
 
@@ -183,5 +234,9 @@ public class PLog {
 
     protected static void setIncludeTimeStamps(String newVal){
         includeTimeStamps = Boolean.parseBoolean(newVal);
+    }
+
+    protected static void setLogDir(String log_dir) {
+        globalLogDir = log_dir;
     }
 }
