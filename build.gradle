@@ -12,7 +12,7 @@ println """
 apply plugin: 'java'
 apply plugin: 'application'
 
-mainClassName = 'main.java.com.pixolestudios.plogger.PLogger'
+mainClassName = 'main.java.com.pixolestudios.plogger.PLog'
 
 sourceSets.main.java.srcDirs = ['src']
 
