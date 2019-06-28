@@ -1,4 +1,4 @@
-<p align="center"><img src="media/logo.png"/></p>
+<p align="center"><img src="media/logo.svg"/></p>
 # Pixole Logger
 ## Set up
 Setup for *Pixole Logger* is really simple as it is all contained to a single .jar file.<br>
