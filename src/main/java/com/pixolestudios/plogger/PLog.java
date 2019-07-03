@@ -3,6 +3,7 @@ package main.java.com.pixolestudios.plogger;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashMap;
+import java.util.Map;
 
 public class PLog {
 
@@ -239,6 +240,9 @@ public class PLog {
         outputToFile("Log file location = " + globalLogDir + logFileMap.get(logName).getLogFileName() + "\n", true, logName);
     }
 
+    public static void setLoggingLevel(PLoggingLevel loggingLevel) {
+        logLvl = loggingLevel;
+    }
 
     protected static void setLoggingLevel(String newVal) {
         logLvl = PLoggingLevel.valueOf(newVal);
@@ -267,5 +271,8 @@ public class PLog {
      */
     public static void setLogDir(String log_dir) {
         globalLogDir = log_dir;
+        for (Map.Entry<String, LogFileData> logFileEntry : logFileMap.entrySet()) {
+            logFileEntry.getValue().setIsFirstLogToFile(true);
+        }
     }
 }
