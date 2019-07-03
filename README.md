@@ -71,6 +71,10 @@ DEF_LOG_NAME = default
 Some of these properties can also be set/updated at runtime using the following syntax
 
 ~~~ java
+PLog.includeDateStamps(true);
+PLog.includeTimeStamps(false);
+PLog.setDefLogFile("logfile");
+PLog.setLogDir("applicationLogs/");
 PLog.writeLogsToStdOut(true);
 PLog.writeLogsToFile(false);
 ~~~

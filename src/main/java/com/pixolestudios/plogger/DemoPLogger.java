@@ -16,8 +16,11 @@ public class DemoPLogger {
         PLog.error("this is an error");
 
         PLog.error("logging to new file", "thisfile");
+        PLog.setDefLogFile("testing");
         PLog.error("back to default");
         PLog.warning("continuing to log on the new file", "thisfile");
         PLog.debug("another log file, why not", "anotherfile");
+        PLog.setDefLogFile("default");
+        PLog.warning("this should append the default file");
     }
 }

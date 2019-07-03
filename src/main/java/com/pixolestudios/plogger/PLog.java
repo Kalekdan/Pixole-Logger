@@ -19,7 +19,6 @@ public class PLog {
     private static String propsFile = "setup/plog_config.properties";
 
     //TRACKING VARIABLES
-//    private static boolean isFirstLogToFile = true;
     private static boolean isFirstLogToStdOut = true;
     private static boolean isValuesLoaded = false;
 
@@ -31,8 +30,8 @@ public class PLog {
     /**
      * Write a message to log
      *
-     * @param input the message to log
-     * @param level the logging level of the message
+     * @param input       the message to log
+     * @param level       the logging level of the message
      * @param logFileName name of the log file to write to
      */
     public static void log(String input, PLoggingLevel level, String logFileName) {
@@ -46,6 +45,7 @@ public class PLog {
             output(composeMsg(input, level), logFileName);
         }
     }
+
     public static void log(String input, PLoggingLevel level) {
         log(input, level, defLogFileName);
     }
@@ -132,7 +132,7 @@ public class PLog {
     /**
      * Logs a debug message
      *
-     * @param input message to log
+     * @param input   message to log
      * @param logName name of the log file to write to
      */
     public static void debug(String input, String logName) {
@@ -142,7 +142,7 @@ public class PLog {
     /**
      * Logs an info message
      *
-     * @param input message to log
+     * @param input   message to log
      * @param logName name of the log file to write to
      */
     public static void info(String input, String logName) {
@@ -152,7 +152,7 @@ public class PLog {
     /**
      * Logs a warning message
      *
-     * @param input message to log
+     * @param input   message to log
      * @param logName name of the log file to write to
      */
     public static void warning(String input, String logName) {
@@ -162,7 +162,7 @@ public class PLog {
     /**
      * Logs an error message
      *
-     * @param input message to log
+     * @param input   message to log
      * @param logName name of the log file to write to
      */
     public static void error(String input, String logName) {
@@ -171,28 +171,52 @@ public class PLog {
 
     /**
      * If true, logger will now write logs to stdout
+     *
      * @param doLogToStdOut if true will write to std out
      */
-    public static void writeLogsToStdOut(boolean doLogToStdOut){
+    public static void writeLogsToStdOut(boolean doLogToStdOut) {
         logToStdOut = doLogToStdOut;
     }
 
     /**
      * If true, logger will now write logs to file as given by logFileLoc
-     * logFileLoc is set do default (as per config.ini) unless changed by setLogFileLoc("path/logfile.plog")
+     * logFileLoc is set to default (as per config.ini) unless changed by setDefLogFile("logfilename")
+     *
      * @param doLogToFile if true will write logs to file
      */
-    public static void writeLogsToFile(boolean doLogToFile){
+    public static void writeLogsToFile(boolean doLogToFile) {
         logToFile = doLogToFile;
     }
 
     /**
-     * Sets the name of the defatul log file to write to
+     * If true, logger will include date stamps before each logging message
+     *
+     * @param doIncludeDateStamps if true will include date stamps in logs
+     */
+    public static void includeDateStamps(boolean doIncludeDateStamps) {
+        includeDateStamps = doIncludeDateStamps;
+    }
+
+    /**
+     * If true, logger will include time stamps before each logging message
+     *
+     * @param doIncludeTimeStamps if true will include time stamps in logs
+     */
+    public static void includeTimeStamps(boolean doIncludeTimeStamps) {
+        includeTimeStamps = doIncludeTimeStamps;
+    }
+
+    /**
+     * Sets the name of the default log file to write to
+     *
      * @param logName path to log to e.g. default
      */
-    public static void setDefLogFile(String logName){
-        if (!logName.equals(defLogFileName)){
-            logFileMap.get(logName).setIsFirstLogToFile(true);
+    public static void setDefLogFile(String logName) {
+        if (!logName.equals(defLogFileName)) {
+            if (!logFileMap.containsKey(logName)) {
+                logFileMap.put(logName, new LogFileData(logName));
+                logFileMap.get(logName).setIsFirstLogToFile(true);
+            }
             defLogFileName = logName;
         }
     }
@@ -224,19 +248,24 @@ public class PLog {
         logToStdOut = Boolean.parseBoolean(newVal);
     }
 
-    protected static void setLogToFile(String newVal){
+    protected static void setLogToFile(String newVal) {
         logToFile = Boolean.parseBoolean(newVal);
     }
 
-    protected static void setIncludeDateStamps(String newVal){
+    protected static void setIncludeDateStamps(String newVal) {
         includeDateStamps = Boolean.parseBoolean(newVal);
     }
 
-    protected static void setIncludeTimeStamps(String newVal){
+    protected static void setIncludeTimeStamps(String newVal) {
         includeTimeStamps = Boolean.parseBoolean(newVal);
     }
 
-    protected static void setLogDir(String log_dir) {
+    /**
+     * Sets the directory the log files will be written in
+     *
+     * @param log_dir the directory in the format "logs/"
+     */
+    public static void setLogDir(String log_dir) {
         globalLogDir = log_dir;
     }
 }
