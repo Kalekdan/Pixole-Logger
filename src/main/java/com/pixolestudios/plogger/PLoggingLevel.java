@@ -19,7 +19,7 @@ public enum PLoggingLevel {
      * @param level logging level to compare to
      * @return true if level is higher or equal to level passed
      */
-    protected boolean isHigherOrEqualLevel(PLoggingLevel level){
+    boolean isHigherOrEqualLevel(PLoggingLevel level){
         return (levelCode >= level.levelCode);
     }
 

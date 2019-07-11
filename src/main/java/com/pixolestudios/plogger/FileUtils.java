@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Properties;
 
-public class FileUtils {
+class FileUtils {
     private FileUtils() {
     }
 
@@ -20,7 +20,7 @@ public class FileUtils {
      * @param path to which directories to be created
      * @return true if successfully creates directories
      */
-    protected static boolean mkdirs(String path) {
+    static boolean mkdirs(String path) {
         File file = new File(path);
         if (file.getParentFile() == null){
             return false;
@@ -37,7 +37,7 @@ public class FileUtils {
      * @param fileLoc path to log file
      * @param append  true if want to append file
      */
-    protected static void writeToLogFile(String msg, String fileLoc, boolean append) {
+    static void writeToLogFile(String msg, String fileLoc, boolean append) {
         try (FileWriter fw = new FileWriter(fileLoc, append); BufferedWriter bw = new BufferedWriter(fw); PrintWriter out = new PrintWriter(bw)) {
             out.println(msg);
         } catch (IOException e) {
@@ -45,7 +45,7 @@ public class FileUtils {
         }
     }
 
-    protected static void loadValsFromPropsFile(String fileLoc){
+    static void loadValsFromPropsFile(String fileLoc){
         try (InputStream stream = new FileInputStream(fileLoc)) {
             Properties props = new Properties();
             props.load(stream);

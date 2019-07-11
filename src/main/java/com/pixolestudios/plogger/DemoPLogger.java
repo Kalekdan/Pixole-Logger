@@ -4,7 +4,7 @@ package main.java.com.pixolestudios.plogger;
  * Temporary file to act as an entry point for logger to allow for self contained testing
  * DOES NOT GET BUILT INTO RELEASE JAR
  */
-public class DemoPLogger {
+class DemoPLogger {
     private DemoPLogger() {
     }
 

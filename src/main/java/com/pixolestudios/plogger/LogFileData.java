@@ -1,23 +1,23 @@
 package main.java.com.pixolestudios.plogger;
 
-public class LogFileData {
+class LogFileData {
     private String logFileName;
     private boolean isFirstLogToFile;
 
-    protected LogFileData(String name){
+    LogFileData(String name){
         logFileName = name + ".plog";
         isFirstLogToFile = true;
     }
 
-    protected boolean getIsFirstLogToFile(){
+    boolean getIsFirstLogToFile(){
         return isFirstLogToFile;
     }
 
-    protected void setIsFirstLogToFile(boolean val){
+    void setIsFirstLogToFile(boolean val){
         isFirstLogToFile = val;
     }
 
-    protected String getLogFileName() {
+    String getLogFileName() {
         return logFileName;
     }
 }

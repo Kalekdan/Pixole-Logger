@@ -29,7 +29,7 @@ public class PLog {
     }
 
     /**
-     * Write a message to log
+     * Write a message to log to the file given by logFileName with the logging level provided
      *
      * @param input       the message to log
      * @param level       the logging level of the message
@@ -47,6 +47,12 @@ public class PLog {
         }
     }
 
+    /**
+     * Writes a message to log at the logging level provided
+     *
+     * @param input the message to log
+     * @param level the logging level of the message
+     */
     public static void log(String input, PLoggingLevel level) {
         log(input, level, defLogFileName);
     }
@@ -131,7 +137,7 @@ public class PLog {
     }
 
     /**
-     * Logs a debug message
+     * Logs a debug message to the log file as given
      *
      * @param input   message to log
      * @param logName name of the log file to write to
@@ -141,7 +147,7 @@ public class PLog {
     }
 
     /**
-     * Logs an info message
+     * Logs an info message to the log file as given
      *
      * @param input   message to log
      * @param logName name of the log file to write to
@@ -151,7 +157,7 @@ public class PLog {
     }
 
     /**
-     * Logs a warning message
+     * Logs a warning message to the log file as given
      *
      * @param input   message to log
      * @param logName name of the log file to write to
@@ -161,7 +167,7 @@ public class PLog {
     }
 
     /**
-     * Logs an error message
+     * Logs an error message to the log file as given
      *
      * @param input   message to log
      * @param logName name of the log file to write to
@@ -222,7 +228,7 @@ public class PLog {
         }
     }
 
-    protected static void listLoggingValuesToStdOut() {
+    private static void listLoggingValuesToStdOut() {
         System.out.println(composeMsg("Logging level = " + logLvl.name(), PLoggingLevel.DEBUG));
         System.out.println(composeMsg("Log to StdOut = " + String.valueOf(logToStdOut), PLoggingLevel.DEBUG));
         System.out.println(composeMsg("Log to file = " + String.valueOf(logToFile), PLoggingLevel.DEBUG));
@@ -231,7 +237,7 @@ public class PLog {
         System.out.println(composeMsg("Default log file location = " + globalLogDir + logFileMap.get(defLogFileName).getLogFileName() + "\n", PLoggingLevel.DEBUG));
     }
 
-    protected static void listLoggingValuesToFile(String logName) {
+    private static void listLoggingValuesToFile(String logName) {
         outputToFile("Logging level = " + logLvl.name(), true, logName);
         outputToFile("Log to StdOut = " + String.valueOf(logToStdOut), true, logName);
         outputToFile("Log to file = " + String.valueOf(logToFile), true, logName);
@@ -240,27 +246,33 @@ public class PLog {
         outputToFile("Log file location = " + globalLogDir + logFileMap.get(logName).getLogFileName() + "\n", true, logName);
     }
 
+    /**
+     * Sets the logging level for plogger
+     * Any logs messages above this level will be logged
+     *
+     * @param loggingLevel the loggins level to set
+     */
     public static void setLoggingLevel(PLoggingLevel loggingLevel) {
         logLvl = loggingLevel;
     }
 
-    protected static void setLoggingLevel(String newVal) {
+    static void setLoggingLevel(String newVal) {
         logLvl = PLoggingLevel.valueOf(newVal);
     }
 
-    protected static void setLogToStdOut(String newVal) {
+    static void setLogToStdOut(String newVal) {
         logToStdOut = Boolean.parseBoolean(newVal);
     }
 
-    protected static void setLogToFile(String newVal) {
+    static void setLogToFile(String newVal) {
         logToFile = Boolean.parseBoolean(newVal);
     }
 
-    protected static void setIncludeDateStamps(String newVal) {
+    static void setIncludeDateStamps(String newVal) {
         includeDateStamps = Boolean.parseBoolean(newVal);
     }
 
-    protected static void setIncludeTimeStamps(String newVal) {
+    static void setIncludeTimeStamps(String newVal) {
         includeTimeStamps = Boolean.parseBoolean(newVal);
     }
 
