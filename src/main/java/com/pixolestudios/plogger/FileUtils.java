@@ -22,7 +22,7 @@ class FileUtils {
      */
     static boolean mkdirs(String path) {
         File file = new File(path);
-        if (file.getParentFile() == null){
+        if (file.getParentFile() == null) {
             return false;
         } else {
             return file.getParentFile().mkdirs();
@@ -45,7 +45,7 @@ class FileUtils {
         }
     }
 
-    static void loadValsFromPropsFile(String fileLoc){
+    static void loadValsFromPropsFile(String fileLoc) {
         try (InputStream stream = new FileInputStream(fileLoc)) {
             Properties props = new Properties();
             props.load(stream);

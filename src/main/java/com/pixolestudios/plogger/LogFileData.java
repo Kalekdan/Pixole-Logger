@@ -4,16 +4,16 @@ class LogFileData {
     private String logFileName;
     private boolean isFirstLogToFile;
 
-    LogFileData(String name){
+    LogFileData(String name) {
         logFileName = name + ".plog";
         isFirstLogToFile = true;
     }
 
-    boolean getIsFirstLogToFile(){
+    boolean getIsFirstLogToFile() {
         return isFirstLogToFile;
     }
 
-    void setIsFirstLogToFile(boolean val){
+    void setIsFirstLogToFile(boolean val) {
         isFirstLogToFile = val;
     }
 
