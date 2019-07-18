@@ -23,7 +23,9 @@ public class PLog {
     private static boolean isFirstLogToStdOut = true;
     private static boolean isValuesLoaded = false;
 
-    private static HashMap<String, LogFileData> logFileMap = new HashMap<String, LogFileData>();
+    //Log file name, log file data
+    //Used to store all working log files to allow for switching between without losing position in file etc.
+    private static Map<String, LogFileData> logFileMap = new HashMap<String, LogFileData>();
 
     private PLog() {
     }
